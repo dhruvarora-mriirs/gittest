@@ -55,7 +55,7 @@ public class UserController {
 	}
 
 	
-	@Throttle(maxPerSecond = 1, maxPerMinute = 100, maxPerHour = 1000, maxPerDay = 10000)
+	@Throttle(maxPerSecond = 10, maxPerMinute = 100, maxPerHour = 1000, maxPerDay = 10000)
 	@Timed(value="userInfo.gettingAll.request",
 		       histogram=true,
 		       percentiles = {0.95,0.99},

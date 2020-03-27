@@ -1,0 +1,6 @@
+com/example/repositories/ApiCallRepository.class
+com/example/model/ApiCall.class
+com/example/model/ApiThrottles.class
+com/example/ThrottlingApplication.class
+com/example/aspect/ThrottleAspect.class
+com/example/interfaces/Throttle.class

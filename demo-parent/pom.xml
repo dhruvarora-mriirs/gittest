@@ -26,5 +26,6 @@
   	<module>demo-child-auth</module>
   	<module>demo-child-api2</module>
   	<module>demo-child-throttling</module>
+  	<module>demo-child-email</module>
   </modules>
 </project>

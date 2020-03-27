@@ -1,0 +1,61 @@
+Implementation of Actuator using statsD 
+1.Add metrics-actuator dependencies.
+2.Add to application properties management.endpoints.web.exposure.include=* to expose all the data metrics at endpoint. 
+3.We can create our customized end point by extending predefined.
+4.We can define end points using annotations @WriteOperation at put api, @ReadOperation at get api and @DeleteOperation at delete api.
+5. Now run your application and check at /actuator/info or /mappings or /metrics or /env to view various actuator data.
+
+Adding Statsd
+
+6.Add Micrometer Configuration : create a bean for meterRegistryCustomizer with meterRegistry .
+7.Add @Timed annotation at your controller or at ur api's for different metrics.
+@Timed(value="userInfo.gettingAll.request",
+		       histogram=true,
+		       percentiles = {0.95,0.99},
+		       extraTags = {"version","1.0"})
+We can add extra tags , histograms to maintain history, percentiles, extra tags, and long task if task is long.
+8.Now Add to application properties the statsd port number where u want send statsd data.
+management.metrics.export.statsd.port:9125, by default port number is 9125
+
+9.Now after running application we can check actuator/metric and after api call we can see the timed metrics columns getting created.
+
+Adding telegrad and influxdb to store data.
+10.We need to download influxdb and telegraf onto our system.
+11.Run the telegraf on your system check its status
+12 using command sudo systemctl status influxdb
+13.now create a database in influxdb with name telegraf and then create a user with password and allow privileges.
+14.Now create a telegraf.conf file with a input source statsd and output source influxdb using command :  telegraf -sample-config -input-filter statsd -output-filter influxdb > telegraf.conf
+
+15.Now open telegraf.conf in edit mode using cmd:
+gedit  /etc/telegraf/telegraf.conf.
+
+16.Now add the user name and password and database name of ur influxdb database;
+17. then close and run ur telegraf using cmd: telegraf -debug
+18.Now run ur application ,if there is error u will get to know about it.
+19.Now check ur database if data is getting stored.
+
+Now Adding Grafana to view graphically your collected metrics.
+20.Download Grafana.
+21.run it in localhost:3000
+22.check all the ports running using cmd:sudo netstat -tulpn
+23.We can kill port using cmd : sudo kill -9 portId
+24.Now we open grafana and add the database.
+25.Select database and provide basic auth username and password and choose direct connection.
+26.After that u can add new Components and panels on ur grafana .
+27. Edit the panels and add new queries to make visualize data.
+
+
+
+Now Adding Restrictions on Api's
+1.Create a @Annotation Throttle which take various inputs like second,minutes,hours and day request.
+2.Create Aspect with conditions to check and store the api logs and throw error if logs exceeds limits.
+3.Now create a jar of this application.
+4.Add dependency in you Api and use it.
+5.you need to define all 4 properties in ur application.properties so it dont cause bean creation error.
+6.Successfully Run your application.
+
+
+Now Adding Email Error Sending:
+1.Create a microservice to send in your api.
+2.Add dependency in ur app.
+

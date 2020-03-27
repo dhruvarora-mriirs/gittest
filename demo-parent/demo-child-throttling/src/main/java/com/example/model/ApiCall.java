@@ -18,7 +18,7 @@ public class ApiCall implements Serializable {
 
     private Long id;
 
-    private String key;
+    private String keyy;
   
     private Long timeStamp;
 
@@ -26,23 +26,23 @@ public class ApiCall implements Serializable {
 
     }
 
-    public ApiCall(String key, Long timeStamp) {
-        this.key = key;
+    public ApiCall(String keyy, Long timeStamp) {
+        this.keyy = keyy;
         this.timeStamp = timeStamp;
     }
 
-    public ApiCall(Long id, String key, Long timeStamp) {
+    public ApiCall(Long id, String keyy, Long timeStamp) {
         this.id = id;
-        this.key = key;
+        this.keyy = keyy;
         this.timeStamp = timeStamp;
     }
 
-    public String getKey() {
-        return key;
+    public String getKeyy() {
+        return keyy;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setKeyy(String keyy) {
+        this.keyy = keyy;
     }
 
     public Long getTimeStamp() {

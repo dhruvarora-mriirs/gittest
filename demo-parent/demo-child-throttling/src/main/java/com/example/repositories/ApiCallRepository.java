@@ -10,8 +10,8 @@ import java.util.List;
 @Repository
 public interface ApiCallRepository extends CrudRepository<ApiCall, String> {
 
-    Long countAllByKey(String apiKey);
+    Long countAllByKeyy(String apiKey);
 
-    List<ApiCall> findAllByTimeStampGreaterThanAndTimeStampLessThanAndKey(Long after, Long before, String apiKey);
+    List<ApiCall> findAllByTimeStampGreaterThanAndTimeStampLessThanAndKeyy(Long after, Long before, String apiKey);
 
 }
