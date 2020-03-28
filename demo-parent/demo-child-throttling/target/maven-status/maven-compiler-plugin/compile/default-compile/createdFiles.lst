@@ -4,3 +4,4 @@ com/example/model/ApiThrottles.class
 com/example/ThrottlingApplication.class
 com/example/aspect/ThrottleAspect.class
 com/example/interfaces/Throttle.class
+com/example/model/MailRequest.class

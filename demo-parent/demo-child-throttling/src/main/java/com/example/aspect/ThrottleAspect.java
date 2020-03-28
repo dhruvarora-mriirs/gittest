@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +25,7 @@ import java.util.List;
 
 import com.example.interfaces.Throttle;
 import com.example.model.ApiCall;
-
+import com.example.model.MailRequest;
 import com.example.repositories.ApiCallRepository;
 
 @Aspect
@@ -91,7 +92,12 @@ public class ThrottleAspect {
 	        List<ApiCall> calls = apiCallRepository
 	                .findAllByTimeStampGreaterThanAndTimeStampLessThanAndKeyy(calendar.getTime().getTime(), new Date().getTime(), apiKey);
 	        if (calls.size() + 1 > max) {
-	        	 throw new HttpServerErrorException(HttpStatus.TOO_MANY_REQUESTS);
+	        	
+	        	RestTemplate restTemplate=new RestTemplate();
+	        	MailRequest request=new MailRequest("dhruv","recieverEmail@gmail.com","senderEmail@gmail.com","Warning");
+	        	restTemplate.postForObject("http://localhost:8082/sendingEmail",request,MailRequest.class);
+	        	
+	        	throw new HttpServerErrorException(HttpStatus.TOO_MANY_REQUESTS);
 	        }
 			
 	    }

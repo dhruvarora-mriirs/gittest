@@ -56,6 +56,12 @@ Now Adding Restrictions on Api's
 
 
 Now Adding Email Error Sending:
-1.Create a microservice to send in your api.
-2.Add dependency in ur app.
+1.Create a microservice to send in your api.Also create restTemplate bean.
+2.Add a template in your email api to send.
+3.Now To send email at every request exceeds. 
+4.Add email api caller using requestTemplate at condition of throttle aspect.
+
+
+
+
 

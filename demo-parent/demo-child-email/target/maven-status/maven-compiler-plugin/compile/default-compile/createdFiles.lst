@@ -1,0 +1,6 @@
+com/example/service/EmailService.class
+com/example/EmailApplication.class
+com/example/controller/EmailController.class
+com/example/config/EmailConfig.class
+com/example/model/MailRequest.class
+com/example/model/MailResponse.class
