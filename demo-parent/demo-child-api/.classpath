@@ -26,7 +26,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
-			<attribute name="module" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
@@ -35,6 +34,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/home/dhruv/Downloads/throttle-concurrents-1.3.jar"/>
 	<classpathentry kind="lib" path="/home/dhruv/.m2/repository/io/dropwizard/metrics/metrics-core/3.1.2/metrics-core-3.1.2.jar" sourcepath="/home/dhruv/.m2/repository/io/dropwizard/metrics/metrics-core/3.1.2/metrics-core-3.1.2-sources.jar">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
@@ -53,6 +53,5 @@
 			<attribute name="maven.scope" value="compile"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/dhruv/Downloads/throttle-concurrents-1.3.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

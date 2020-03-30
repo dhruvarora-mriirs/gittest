@@ -62,6 +62,39 @@ Now Adding Email Error Sending:
 4.Add email api caller using requestTemplate at condition of throttle aspect.
 
 
+Implementing new Relic
+1.Create an account on rpm.newrelic.com.
+2.Download the latest java agent.Currently 5.11.0
+3.Extract files on to your Resource. Using cmd unzip newrelic-java-5.11.0.zip -d /path/to/resource .
+4.Add newrelic agent dependencies in pom file.
+5.Edit the newrelif.yml file.
+6.Add your license key and application name in newrelif.yml.
+7.Now copy the newrelif.jar and newrelif.yml in your application target folder
+8.Now run using cmd :java -javaagent:newrelic.jar -jar myapplication.jar 
+9.Agent at the newrelic will be created .
+10.Now we can view various api logs and visualize api .
+
+
+Implementing MongoDB.
+1.Download MongoDb : sudo apt-get install -y mongodb-org
+2.Start and check status of mongoDB using cmd :sudo systemctl start mongod
+sudo systemctl enable mongod
+3.Now open mongodb using cmd :mongo
+4.Add a user with name and password and role, using create user in mongoDB.
+5.Now create a model in spring boot and add @Document .
+6.Each row in mongoDb is document , each table is a collection, and above that is database.
+7.Create a Repository interface and extend it to MongoRepository . Now we can create MongoTemplate and MongoRepository methods based on our requirement.
+8.MongoTemplates provide better searching methods and MongoRepository provides CRUD operations.
+9.Now Create a service and controller , Add to application properties, MongoDb port,username,password,dbname.
+10.spring.data.mongodb.host=localhost
+spring.data.mongodb.port=27017
+spring.data.mongodb.database=admin
+spring.data.mongodb.username=admin
+spring.data.mongodb.password=admin
+spring.data.mongodb.auto-index-creation=false
+11.We can also add it like this, by default database is test. But We can change name and it will be autocreated.
+#spring.data.mongodb.uri=mongodb://root:root@localhost:27017/test_db
+
 
 
 

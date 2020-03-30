@@ -1,0 +1,52 @@
+Mar 30, 2020 11:59:25 +0530 [24908 1] com.newrelic INFO: Writing to New Relic log file: /home/dhruv/eclipse-workspace/demo-parent/demo-child-api2/target/logs/newrelic_agent.log
+Mar 30, 2020 11:59:25 +0530 [24908 1] com.newrelic INFO: JRE vendor Ubuntu version 11.0.6
+Mar 30, 2020 11:59:25 +0530 [24908 1] com.newrelic INFO: JVM vendor Ubuntu OpenJDK 64-Bit Server VM version 11.0.6+10-post-Ubuntu-1ubuntu118.04.1
+Mar 30, 2020 11:59:25 +0530 [24908 1] com.newrelic INFO: OS Linux version 5.3.0-42-generic arch amd64
+Mar 30, 2020 11:59:25 +0530 [24908 1] com.newrelic INFO: Agent Host: dhruv-Inspiron-5521 IP: 127.0.1.1
+Mar 30, 2020 11:59:25 +0530 [24908 1] com.newrelic INFO: New Relic Agent v5.11.0 is initializing...
+Mar 30, 2020 11:59:28 +0530 [24908 16] com.newrelic INFO: Instrumentation com.newrelic.instrumentation.jdbc-resultset is disabled. Skipping.
+Mar 30, 2020 11:59:32 +0530 [24908 1] com.newrelic.agent.RPMServiceManagerImpl INFO: Configured to connect to New Relic at collector.newrelic.com:443
+Mar 30, 2020 11:59:35 +0530 [24908 1] com.newrelic INFO: Setting audit_mode to false
+Mar 30, 2020 11:59:35 +0530 [24908 1] com.newrelic INFO: Setting protocol to "https"
+Mar 30, 2020 11:59:36 +0530 [24908 1] com.newrelic.agent.config.ConfigServiceImpl INFO: Configuration file is /home/dhruv/eclipse-workspace/demo-parent/demo-child-api2/target/./newrelic.yml
+Mar 30, 2020 11:59:36 +0530 [24908 1] com.newrelic INFO: New Relic Agent v5.11.0 has started
+Mar 30, 2020 11:59:36 +0530 [24908 1] com.newrelic INFO: Agent class loader: com.newrelic.bootstrap.BootstrapAgent$JVMAgentClassLoader@e6ea0c6
+Mar 30, 2020 11:59:36 +0530 [24908 1] com.newrelic INFO: Premain startup complete in 13,458ms
+Mar 30, 2020 11:59:49 +0530 [24908 1] com.newrelic INFO: Server Info: Apache Tomcat/9.0.29
+Mar 30, 2020 12:00:01 +0530 [24908 34] com.newrelic INFO: Host name is dhruv-Inspiron-5521, display host dhruv-Inspiron-5521 for application My Application
+Mar 30, 2020 12:00:04 +0530 [24908 34] com.newrelic INFO: Collector redirection to collector-007.newrelic.com:443
+Mar 30, 2020 12:00:05 +0530 [24908 34] com.newrelic INFO: Max payload size is 1,000,000 bytes
+Mar 30, 2020 12:00:05 +0530 [24908 34] com.newrelic INFO: Agent run id: BePAtmm7bSCmACi97SVxlGxegZJgAAIBAAAnIQEAAGFMAgAlcZRmAwAGNS4xMS4wABNkaHJ1di1JbnNwaXJvbi01NTIxAA5NeSBBcHBsaWNhdGlvbg
+Mar 30, 2020 12:00:05 +0530 [24908 34] com.newrelic INFO: Agent 24908@dhruv-Inspiron-5521/My Application connected to collector.newrelic.com:443
+Mar 30, 2020 12:00:05 +0530 [24908 34] com.newrelic INFO: Reporting to: https://rpm.newrelic.com/accounts/2670061/applications/628200550
+Mar 30, 2020 12:00:05 +0530 [24908 34] com.newrelic INFO: Using default collector host: collector.newrelic.com
+Mar 30, 2020 12:00:05 +0530 [24908 34] com.newrelic INFO: Using default collector host: collector.newrelic.com
+Mar 30, 2020 12:00:05 +0530 [24908 34] com.newrelic INFO: Real user monitoring is enabled for application My Application. Auto instrumentation is enabled.
+Mar 30, 2020 12:11:02 +0530 [24908 11] com.newrelic.agent.core.CoreServiceImpl INFO: JVM is shutting down
+Mar 30, 2020 12:11:02 +0530 [24908 11] com.newrelic.agent.core.CoreServiceImpl INFO: New Relic Agent has shutdown
+Mar 30, 2020 12:16:04 +0530 [29018 1] com.newrelic INFO: Writing to New Relic log file: /home/dhruv/eclipse-workspace/demo-parent/demo-child-api2/target/logs/newrelic_agent.log
+Mar 30, 2020 12:16:04 +0530 [29018 1] com.newrelic INFO: JRE vendor Ubuntu version 11.0.6
+Mar 30, 2020 12:16:04 +0530 [29018 1] com.newrelic INFO: JVM vendor Ubuntu OpenJDK 64-Bit Server VM version 11.0.6+10-post-Ubuntu-1ubuntu118.04.1
+Mar 30, 2020 12:16:04 +0530 [29018 1] com.newrelic INFO: OS Linux version 5.3.0-42-generic arch amd64
+Mar 30, 2020 12:16:04 +0530 [29018 1] com.newrelic INFO: Agent Host: dhruv-Inspiron-5521 IP: 127.0.1.1
+Mar 30, 2020 12:16:04 +0530 [29018 1] com.newrelic INFO: New Relic Agent v5.11.0 is initializing...
+Mar 30, 2020 12:16:07 +0530 [29018 16] com.newrelic INFO: Instrumentation com.newrelic.instrumentation.jdbc-resultset is disabled. Skipping.
+Mar 30, 2020 12:16:09 +0530 [29018 1] com.newrelic.agent.RPMServiceManagerImpl INFO: Configured to connect to New Relic at collector.newrelic.com:443
+Mar 30, 2020 12:16:10 +0530 [29018 1] com.newrelic INFO: Setting audit_mode to false
+Mar 30, 2020 12:16:10 +0530 [29018 1] com.newrelic INFO: Setting protocol to "https"
+Mar 30, 2020 12:16:11 +0530 [29018 1] com.newrelic.agent.config.ConfigServiceImpl INFO: Configuration file is /home/dhruv/eclipse-workspace/demo-parent/demo-child-api2/target/./newrelic.yml
+Mar 30, 2020 12:16:11 +0530 [29018 1] com.newrelic INFO: New Relic Agent v5.11.0 has started
+Mar 30, 2020 12:16:11 +0530 [29018 1] com.newrelic INFO: Agent class loader: com.newrelic.bootstrap.BootstrapAgent$JVMAgentClassLoader@e6ea0c6
+Mar 30, 2020 12:16:11 +0530 [29018 1] com.newrelic INFO: Premain startup complete in 11,038ms
+Mar 30, 2020 12:16:27 +0530 [29018 1] com.newrelic INFO: Server Info: Apache Tomcat/9.0.29
+Mar 30, 2020 12:16:36 +0530 [29018 34] com.newrelic INFO: Host name is dhruv-Inspiron-5521, display host dhruv-Inspiron-5521 for application My Application
+Mar 30, 2020 12:16:39 +0530 [29018 34] com.newrelic INFO: Collector redirection to collector-007.newrelic.com:443
+Mar 30, 2020 12:16:42 +0530 [29018 34] com.newrelic INFO: Max payload size is 1,000,000 bytes
+Mar 30, 2020 12:16:42 +0530 [29018 34] com.newrelic INFO: Agent run id: BfzNWHDa7gALACi97SVxlGxegZYgAAIBAAAnIQEAAHFaAgQlcZRmAwAGNS4xMS4wABNkaHJ1di1JbnNwaXJvbi01NTIxAA5NeSBBcHBsaWNhdGlvbg
+Mar 30, 2020 12:16:42 +0530 [29018 34] com.newrelic INFO: Agent 29018@dhruv-Inspiron-5521/My Application connected to collector.newrelic.com:443
+Mar 30, 2020 12:16:42 +0530 [29018 34] com.newrelic INFO: Reporting to: https://rpm.newrelic.com/accounts/2670061/applications/628200550
+Mar 30, 2020 12:16:42 +0530 [29018 34] com.newrelic INFO: Using default collector host: collector.newrelic.com
+Mar 30, 2020 12:16:42 +0530 [29018 34] com.newrelic INFO: Using default collector host: collector.newrelic.com
+Mar 30, 2020 12:16:43 +0530 [29018 34] com.newrelic INFO: Real user monitoring is enabled for application My Application. Auto instrumentation is enabled.
+Mar 30, 2020 12:49:51 +0530 [29018 11] com.newrelic.agent.core.CoreServiceImpl INFO: JVM is shutting down
+Mar 30, 2020 12:49:51 +0530 [29018 11] com.newrelic.agent.core.CoreServiceImpl INFO: New Relic Agent has shutdown

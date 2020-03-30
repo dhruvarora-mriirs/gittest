@@ -27,5 +27,6 @@
   	<module>demo-child-api2</module>
   	<module>demo-child-throttling</module>
   	<module>demo-child-email</module>
+  	<module>demo-child-mongoDB</module>
   </modules>
 </project>
