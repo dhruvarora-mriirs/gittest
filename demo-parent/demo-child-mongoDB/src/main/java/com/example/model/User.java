@@ -34,8 +34,7 @@ public class User {
 	private String gender;
 	
 	
-	//@NotEmpty(message = "Date of birth is required")
-	//@DateTimeFormat(pattern = "dd-MM-yyyy")
+	
 	private Date dob;
 	
 	@NotBlank

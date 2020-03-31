@@ -1,7 +1,6 @@
 package com.example.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +9,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.exceptions.RecordNotFoundException;
+import com.example.model.AggregatorResponse;
+import com.example.model.CustomResponse;
 import com.example.model.User;
 import com.example.service.UserService;
 
@@ -37,8 +40,7 @@ import com.example.service.UserService;
 public class UserController {
 
 	
-	
-
+	Logger logger = LoggerFactory.getLogger(User.class);
 	
 
 
@@ -53,6 +55,7 @@ public class UserController {
 		                        @RequestParam(defaultValue = "id") String sortBy) 
 		    
 		    {
+			 logger.info("Called ALL User API");
 		        List<User> list = services.getAllUsers(pageNo, pageSize, sortBy);
 		        if(list.isEmpty())
 		        return new ResponseEntity<List<User>>(list, new HttpHeaders(), HttpStatus.NO_CONTENT); 
@@ -68,6 +71,7 @@ public class UserController {
 		@GetMapping("/{id}")
 		public ResponseEntity<User> getUser(@PathVariable @Positive long id) {
 
+			 logger.info("Called single User API");
 			Optional<User> user = services.getUser(id);
 			if (user.isPresent()) {
 				return new ResponseEntity<>(services.getUser(id).get(), HttpStatus.OK);
@@ -80,7 +84,7 @@ public class UserController {
 		@PostMapping
 		public ResponseEntity<User> addUser(@Valid @RequestBody User user)throws Exception {
 	     
-		    
+			 logger.info("Called create User API");
 			return new ResponseEntity<>(services.saveUser(user), HttpStatus.CREATED);
 	      
 		}
@@ -134,19 +138,43 @@ public class UserController {
 
 		}
 		
-		@GetMapping("dob/{dob}")
-		public ResponseEntity<User> getUserByDob(@PathVariable String dob) {
-			
-			
+		@GetMapping("/male")
+		ResponseEntity<List<User>> getMaleUser()
+		
+         {
+List<User> list = services.getMaleUser();
+if(list.isEmpty())
+return new ResponseEntity<List<User>>(list, new HttpHeaders(), HttpStatus.NO_CONTENT); 
 
-			Optional<User> user = services.getByDob(dob);
-			if (user.isPresent()) {
-				return new ResponseEntity<>(services.getByDob(dob).get(), HttpStatus.OK);
+return new ResponseEntity<List<User>>(list, new HttpHeaders(), HttpStatus.OK);
+
+
+}
+		@GetMapping("/count")
+		ResponseEntity<List<CustomResponse>> getAggregatedUser()
+		
+         {
+List<CustomResponse> list = services.getNoOfUser();
+if(list.isEmpty())
+return new ResponseEntity<List<CustomResponse>>(list, new HttpHeaders(), HttpStatus.NO_CONTENT); 
+
+return new ResponseEntity<List<CustomResponse>>(list, new HttpHeaders(), HttpStatus.OK);
+
+
+}
+		@GetMapping("/minmax")
+		public ResponseEntity<AggregatorResponse> getMinAndMaxUID() {
+
+			AggregatorResponse user = services.getMaxUserId();
+			if (user!=null) {
+				return new ResponseEntity<>(services.getMaxUserId(), HttpStatus.OK);
 			}
 
-			throw new RecordNotFoundException("No user with this dob : " + dob);
+			throw new RecordNotFoundException("no user id : ");
 
 		}
+
+		
 		
 
 		@ResponseStatus(HttpStatus.BAD_REQUEST)
