@@ -25,12 +25,14 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.grou
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import com.example.model.AggregatorResponse;
 import com.example.model.CustomResponse;
 import com.example.model.User;
 import com.example.repository.UserRepository;
+import com.mongodb.client.result.UpdateResult;
 
 @Service
 public class UserService {
@@ -83,6 +85,21 @@ public class UserService {
 		AggregatorResponse document= result.getUniqueMappedResult();
 		return document;
 
+	}
+	
+	public List<User> updateMulti(String userName,String gender)
+	{
+		Query query=new Query().addCriteria(Criteria.where("userName").is(userName));
+		 Update update = new Update();
+		 update.set("gender",gender);
+		 
+		
+		 mongoTemplate.updateMulti(query,update,User.class);
+
+
+			List<User> result = mongoTemplate.find(query,User.class);
+		return result;
+		
 	}
 	
 	

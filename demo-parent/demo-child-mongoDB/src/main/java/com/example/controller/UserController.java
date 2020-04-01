@@ -34,6 +34,7 @@ import com.example.model.AggregatorResponse;
 import com.example.model.CustomResponse;
 import com.example.model.User;
 import com.example.service.UserService;
+import com.mongodb.client.result.UpdateResult;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -174,6 +175,18 @@ return new ResponseEntity<List<CustomResponse>>(list, new HttpHeaders(), HttpSta
 
 		}
 
+		@PatchMapping("/updateAll/{userName}")
+		public ResponseEntity<List<User>> updateAll(@PathVariable String userName,
+				                                       @RequestBody String  gender )
+		{
+			List<User> result=services.updateMulti(userName,gender);
+			if(result!=null)
+	
+return new ResponseEntity<List<User>>(result, new HttpHeaders(), HttpStatus.OK);
+
+return new ResponseEntity<List<User>>(result, new HttpHeaders(), HttpStatus.NO_CONTENT);
+			
+		}
 		
 		
 

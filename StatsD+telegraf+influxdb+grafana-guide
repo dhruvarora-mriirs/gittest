@@ -97,7 +97,106 @@ spring.data.mongodb.auto-index-creation=false
 
 
 
-Implementing aggregation functions
+Implementing MongoDB aggregation functions
+1.We can implement various mongoDB aggregations using :MongodbTemplate class and using aggregate with further queries.
+2.It works in stages : we can match data then group them and perform more operations and vice-versa .
+3.Various aggregate functions are :Min,max,sum,avg,first,last,addToSet, push.
+4.Further we have pipelines : pipeline means the possibility to execute an operation on some input and use the output as the input for the next command and so on.
+Various pipeline Functions are:
+1.$project − Used to select some specific fields from a collection.
+2.$match − This is a filtering operation and thus this can reduce the amount of documents that are given as input to the next stage.
+3.$group − This does the actual aggregation as discussed above.
+4.$sort − Sorts the documents.
+5.$skip − With this, it is possible to skip forward in the list of documents for a given amount of documents.
+6.$limit − This limits the amount of documents to look at, by the given number starting from the current positions.
+7.$unwind −To expand doc again.
+
+
+MongoDb:Replication
+It making replication of your database to use it when one of the database fails.
+1.mkdir -p rs1 rs2 rs3  -creating directories
+2.mongod --replSet dhruv --logpath "1.log" --dbpath --port 27017 & 
+  mongod --replSet dhruv --logpath "2.log" --dbpath --port 27018 &
+  mongod --replSet dhruv --logpath "3.log" --dbpath --port 27019 &
+
+ to run locally on different port and different log.
+3.Add config in mongodb
+ config={_id:"dhruv",members:[
+{_id:0,host : "localhost:27017"},
+{_id:1,host : "localhost:27018"},
+{_id:2,host : "localhost:27019"},
+]};
+
+4. rs.initiate(config);
+5.rs.status();
+6.check running mongo using cmd: ps -ef | grep mongod
+7. Now kill primary using kill code.
+8. mongo --host dhruv/localhost:27017,localhost:27018,localhost:27019
+The replica set is a group of mongod instances that maintain the same data set.
+This example shows how to configure a replica set with three instances on the same server.
+Creating data folders
+mkdir /srv/mongodb/data/rs0-0
+mkdir /srv/mongodb/data/rs0-1
+mkdir /srv/mongodb/data/rs0-2
+Starting mongod instances
+mongod --port 27017 --dbpath /srv/mongodb/data/rs0-0 --replSet rs0
+mongod --port 27018 --dbpath /srv/mongodb/data/rs0-1 --replSet rs0
+mongod --port 27019 --dbpath /srv/mongodb/data/rs0-2 --replSet rs0
+Configuring replica set
+mongo --port 27017
+// connection to the instance 27017
+rs.initiate();
+rs.add("<hostname>:27018")
+rs.add("<hostname>:27019")
+// initilization of replica set on the 1st node
+// adding a 2nd node
+// adding a 3rd node
+Testing your setup
+For checking the configuration type rs.status()
+
+
+
+
+MongoDb sharding: 
+Sharding is the process of distributing data across multiple servers for storage.
+By default there are 3 config servers.
+Sharding Group Members :
+For sharding there are three players.
+1. Config Server
+2. Replica Sets
+3. Mongos
+For a mongo shard we need to setup the above three servers.
+Config Server Setup : add the following to mongod conf file
+sharding:
+clusterRole: configsvr
+replication:
+replSetName: <setname>
+run : mongod --config
+we can choose config server as replica set or may be a standalone server. Based on our requirement we can choose the
+best. If config need to run in replica set we need to follow the replica set setup
+Replica Setup : Create replica set // Please refer the replica setup
+MongoS Setup : Mongos is main setup in shard. Its is query router to access all replica sets
+Add the following in mongos conf file
+sharding:
+configDB: <configReplSetName>/cfg1.example.net:27017;
+Configure Shared :
+Connect the mongos via shell (mongo --host --port )
+1. sh.addShard( "/s1-mongo1.example.net:27017")
+2. sh.enableSharding("")
+3. sh.shardCollection("< database >.< collection >", { < key > : < direction > } )
+4. sh.status() // To ensure the sharding
+
+
+MongoDb :
+(Push:- to add new field ,       db.people.update({name: 'Tom'}, {$push: {nicknames: 'Tommy'}})
+ Pop:- to delete a element in a array,-1 for 1st element, 1 for last element ,
+ pull:-to delete a string in a array,   
+ sort -1 for descending  and 1 for ascending        
+ Poll, Array, MultiUpdate, Find and Modify, Query with sort)
+
+
+
+
 
 Splunk vs newRelic 
 Similarities:
