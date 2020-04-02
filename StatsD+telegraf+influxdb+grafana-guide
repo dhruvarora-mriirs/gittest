@@ -75,6 +75,27 @@ Implementing new Relic
 10.Now we can view various api logs and visualize api .
 
 
+Splunk vs newRelic 
+Similarities:
+
+    Initially focused on machine data (metrics for NR, logs for Splunk)
+    Initially focused on DevOps, but spreading to other areas - security, marketing, business metrics, and so on
+    Both fairly expensive compared to most of their alternatives
+
+Differences:
+
+    New Relic is focused on APM at the moment. Splunk is/was focused on logs and other forms of event data, other than metrics
+    Splunk is focused on On Premises deployments (they have/had a Cloud offering, but it is/was pretty weak), while New Relic is Cloud-only
+    New Relic was initially focused on small businesses and is growing upwards from there, while Splunk is (still) focused on large enterprises
+
+Alternatives:
+
+Both New Relic and Splunk have alternatives:
+
+    For New Relic alternative you could go for AppDynamics, which is powerful but pricey, or Datadog or SPM from us at Sematext, which are much more affordable. Datadog is Cloud-only, while SPM is both Cloud and On Premises.
+    For Splunk alternative you could try DIY ELK stack (free software, but not free time/labour/expertise needed) or something like Logsene from Sematext, which gives you Elasticsearch API, Kibana, etc. and can be used in the Cloud or On Premises.
+
+
 Implementing MongoDB.
 1.Download MongoDb : sudo apt-get install -y mongodb-org
 2.Start and check status of mongoDB using cmd :sudo systemctl start mongod
@@ -198,24 +219,6 @@ MongoDb :
 
 
 
-Splunk vs newRelic 
-Similarities:
 
-    Initially focused on machine data (metrics for NR, logs for Splunk)
-    Initially focused on DevOps, but spreading to other areas - security, marketing, business metrics, and so on
-    Both fairly expensive compared to most of their alternatives
-
-Differences:
-
-    New Relic is focused on APM at the moment. Splunk is/was focused on logs and other forms of event data, other than metrics
-    Splunk is focused on On Premises deployments (they have/had a Cloud offering, but it is/was pretty weak), while New Relic is Cloud-only
-    New Relic was initially focused on small businesses and is growing upwards from there, while Splunk is (still) focused on large enterprises
-
-Alternatives:
-
-Both New Relic and Splunk have alternatives:
-
-    For New Relic alternative you could go for AppDynamics, which is powerful but pricey, or Datadog or SPM from us at Sematext, which are much more affordable. Datadog is Cloud-only, while SPM is both Cloud and On Premises.
-    For Splunk alternative you could try DIY ELK stack (free software, but not free time/labour/expertise needed) or something like Logsene from Sematext, which gives you Elasticsearch API, Kibana, etc. and can be used in the Cloud or On Premises.
 
 

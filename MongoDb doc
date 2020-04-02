@@ -1,0 +1,219 @@
+MongoDB
+
+It is a highly scalable NoSql database .We can create documents flexibly , and can also make different fields without compromising indexing.
+The basic unit of data in this database consists of a set of key–value pairs.It allows documents to have different fields and structures.
+
+It is highly scalable and faster because of two concepts sharding and replication.
+
+Replication is basically making copies of database and keep them at secondary nodes , data is sent and retrieve from primary node ,then updated at secondary node, this provides high scalability , if primary node fails then secondary node becomes primary and dont affect loosing of performance .I have added implementing example below using different ports on single machine.
+
+Sharding is a horizontal distribution of data across different servers . It helps in decreasing response time and better performance .
+It makes our database highly scalable .
+
+Scalability is a characteristic of a system that describes its capability to perform under an increased workload. A system that scales well will be able to maintain and increase its level of performance under larger operational demands.
+
+MongoDB supports horizontal scaling through Sharding , distributing data across several machines and facilitating high throughput operations with large sets of data.Sharding makes database more scalable.
+
+We can create indexes at different collections based on our requirement to improve fetching data performance.
+
+
+
+Database: In simple words, it can be called the physical container for data. Each of the databases has its own set of files on the file system with multiple databases existing on a single MongoDB server.
+
+Collection: A group of database documents can be called a collection. The RDBMS equivalent to a collection is a table. The entire collection exists within a single database. There are no schemas when it comes to collections. Inside the collection, various documents can have varied fields, but mostly the documents within a collection are meant for the same purpose or for serving the same end goal.
+
+Document: A set of key–value pairs can be designated as a document. Documents are associated with dynamic schemas. The benefit of having dynamic schemas is that a document in a single collection does not have to possess the same structure or fields. Also, the common fields in a collection’s document can have varied types of data.
+
+Various Features are:
+1.It is highly scalable.
+2.Replication
+3.Sharding
+4.indexing
+5.Aggregation
+6.Document Oriented 
+7.Schema Less database
+8.Ad-hoc queries -as per need queries.
+9.Auto-sharding: This process distributes data across multiple physical partitions called shards. Due to sharding, MongoDB has an automatic load balancing feature.
+
+Various Dis-advantages are:
+1.It requires heavy memory.
+2.Limited data size.
+3.Limited Nesting
+4.Joins not supported
+
+Implementing MongoDB.
+1.Download MongoDb : sudo apt-get install -y mongodb-org
+2.Start and check status of mongoDB using cmd :sudo systemctl start mongod
+sudo systemctl enable mongod
+3.Now open mongodb using cmd :mongo
+4.Add a user with name and password and role, using create user in mongoDB.
+5.Now create a model in spring boot and add @Document .
+6.Each row in mongoDb is document , each table is a collection, and above that is database.
+7.Create a Repository interface and extend it to MongoRepository . Now we can create MongoTemplate and MongoRepository methods based on our requirement.
+8.MongoTemplates provide better searching methods and MongoRepository provides CRUD operations.
+9.Now Create a service and controller , Add to application properties, MongoDb port,username,password,dbname.
+10.spring.data.mongodb.host=localhost
+spring.data.mongodb.port=27017
+spring.data.mongodb.database=admin
+spring.data.mongodb.username=admin
+spring.data.mongodb.password=admin
+spring.data.mongodb.auto-index-creation=false
+11.We can also add it like this, by default database is test. But We can change name and it will be autocreated.
+#spring.data.mongodb.uri=mongodb://root:root@localhost:27017/test_db
+
+
+
+Implementing MongoDB aggregation functions
+1.We can implement various mongoDB aggregations using :MongodbTemplate class and using aggregate with further queries.
+2.It works in stages : we can match data then group them and perform more operations and vice-versa .
+3.Various aggregate functions are :Min,max,sum,avg,first,last,addToSet, push.
+4.Further we have pipelines : pipeline means the possibility to execute an operation on some input and use the output as the input for the next command and so on.
+Various pipeline Functions are:
+1.$project − Used to select some specific fields from a collection.
+2.$match − This is a filtering operation and thus this can reduce the amount of documents that are given as input to the next stage.
+3.$group − This does the actual aggregation as discussed above.
+4.$sort − Sorts the documents.
+5.$skip − With this, it is possible to skip forward in the list of documents for a given amount of documents.
+6.$limit − This limits the amount of documents to look at, by the given number starting from the current positions.
+7.$unwind −To expand doc again.
+
+
+MongoDb:Replication
+It making replication of your database to use it when one of the database fails.
+1.mkdir -p rs1 rs2 rs3  -creating directories
+2.mongod --replSet dhruv --logpath "1.log" --dbpath --port 27017 & 
+  mongod --replSet dhruv --logpath "2.log" --dbpath --port 27018 &
+  mongod --replSet dhruv --logpath "3.log" --dbpath --port 27019 &
+
+ to run locally on different port and different log.
+3.Add config in mongodb
+ config={_id:"dhruv",members:[
+{_id:0,host : "localhost:27017"},
+{_id:1,host : "localhost:27018"},
+{_id:2,host : "localhost:27019"},
+]};
+
+4. rs.initiate(config);
+5.rs.status();
+6.check running mongo using cmd: ps -ef | grep mongod
+7. Now kill primary using kill code.
+8. mongo --host dhruv/localhost:27017,localhost:27018,localhost:27019
+The replica set is a group of mongod instances that maintain the same data set.
+
+
+This example shows how to configure a replica set with three instances on the same server.
+Creating data folders
+mkdir /srv/mongodb/data/rs0-0
+mkdir /srv/mongodb/data/rs0-1
+mkdir /srv/mongodb/data/rs0-2
+Starting mongod instances
+mongod --port 27017 --dbpath /srv/mongodb/data/rs0-0 --replSet rs0
+mongod --port 27018 --dbpath /srv/mongodb/data/rs0-1 --replSet rs0
+mongod --port 27019 --dbpath /srv/mongodb/data/rs0-2 --replSet rs0
+Configuring replica set
+mongo --port 27017
+// connection to the instance 27017
+rs.initiate();
+rs.add("<hostname>:27018")
+rs.add("<hostname>:27019")
+// initilization of replica set on the 1st node
+// adding a 2nd node
+// adding a 3rd node
+Testing your setup
+For checking the configuration type rs.status()
+
+
+
+
+MongoDb sharding: 
+Sharding is the process of distributing data across multiple servers for storage.
+By default there are 3 config servers.
+Sharding Group Members :
+For sharding there are three players.
+1. Config Server
+2. Replica Sets
+3. Mongos
+For a mongo shard we need to setup the above three servers.
+Config Server Setup : add the following to mongod conf file
+sharding:
+clusterRole: configsvr
+replication:
+replSetName: <setname>
+run : mongod --config
+we can choose config server as replica set or may be a standalone server. Based on our requirement we can choose the
+best. If config need to run in replica set we need to follow the replica set setup
+Replica Setup : Create replica set // Please refer the replica setup
+MongoS Setup : Mongos is main setup in shard. Its is query router to access all replica sets
+Add the following in mongos conf file
+sharding:
+configDB: <configReplSetName>/cfg1.example.net:27017;
+Configure Shared :
+Connect the mongos via shell (mongo --host --port )
+1. sh.addShard( "/s1-mongo1.example.net:27017")
+2. sh.enableSharding("")
+3. sh.shardCollection("< database >.< collection >", { < key > : < direction > } )
+4. sh.status() // To ensure the sharding
+
+
+MongoDb :Few Frequently used commands:
+1.Push:- to add new field ,       db.people.update({name: 'Tom'}, {$push: {nicknames: 'Tommy'}})
+2. Pop:- to delete a element in a array,-1 for 1st element, 1 for last element ,
+3.pull:-to delete a string in a array,   
+4.sort -1 for descending  and 1 for ascending.        
+5.db.updateMulti() - to update multiple documents in a collection.
+6.db.collectionName.find();-to view all data.
+7.use databasename - to create a database or use already created.
+8.db.dropDatabase()
+9.db.createCollection(name, options)
+    Name: The string type which specifies the name of the collection to be created
+    Options: The document type which specifies the memory size and the indexing of the collection. It is an optional parameter.
+10.Showing Collections db.getCollectionNames()
+11.$in Operator
+    The $in operator selects those documents where the value of a field is equal to the value in the specified array. To use the $in expression, use the following prototype:
+    Command: { field: { $in: [<value1>, <value2>, … <valueN> ] } }
+12.$not Operator
+    $not does a logical NOT operation on the specified <operator-expression> and selects only those documents that don’t match the <operator-expression>. This includes documents that do not contain the field.
+    Command: { field: { $not: { <operator-expression> } } }
+
+13.Delete Commands
+Following are commands which explain MongoDB’s delete capabilities.
+        Commands:
+        collection.remove() – It deletes a single document that matches a filter. 
+        db.collection.deleteOne() – It deletes up to only a single document even if the command selects more than one document.
+        db.collection.deletemany() – It deletes all the documents that match the specified filter.
+
+14.Where Command
+To pass either a string which has a JavaScript expression or a full JavaScript function to the query system, the following operator can be used.
+    Command: $where
+
+15.The forEach Command
+JavaScript function is applied to each document from the cursor while iterating the cursor.
+    Command: cursor.forEach(function)
+
+16.db.movie.insert({"name":"da"})
+17.>db.mycol.find({},{"title":1,_id:0}) will show only title no id. it comes under projection to view data.
+18.db.COLLECTION_NAME.find().sort({KEY:1}) 1 for ascending and -1 for descending.
+19.Indexes are special data structures, that store a small portion of the data set in an easy-to-traverse form. The index stores the value of a specific field or set of fields, ordered by the value of the field as specified in the index.
+The createIndex() Method
+To create an index, you need to use createIndex() method of MongoDB.
+Syntax
+The basic syntax of createIndex() method is as follows().
+>db.COLLECTION_NAME.createIndex({KEY:1})
+
+Index Ranges:
+    A collection cannot have more than 64 indexes.
+    The length of the index name cannot be longer than 125 characters.
+    A compound index can have maximum 31 fields indexed.
+
+
+
+
+Some considerations while designing Schema in MongoDB
+1.Design your schema according to user requirements.
+2.Combine objects into one document if you will use them together. Otherwise separate them (but make sure there should not be need of joins).
+3.Duplicate the data (but limited) because disk space is cheap as compare to compute time.
+4.Do joins while write, not on read.
+5.Optimize your schema for most frequent use cases.
+6.Do complex aggregation in the schema.
+
+
