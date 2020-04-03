@@ -1,3 +1,7 @@
+Spring Boot Actuator is a sub-project of the Spring Boot Framework. It includes a number of additional features that help us to monitor and manage the Spring Boot application. It contains the actuator endpoints (the place where the resources live). We can use HTTP and JMX endpoints to manage and monitor the Spring Boot application. 
+
+Metrics: Spring Boot Actuator provides dimensional metrics by integrating with the micrometer. The micrometer is integrated into Spring Boot. It is the instrumentation library powering the delivery of application metrics from Spring. It provides vendor-neutral interfaces for timers, gauges, counters, distribution summaries, and long task timers with a dimensional data model.
+
 Implementation of Actuator using statsD 
 1.Add metrics-actuator dependencies.
 2.Add to application properties management.endpoints.web.exposure.include=* to expose all the data metrics at endpoint. 
@@ -5,6 +9,7 @@ Implementation of Actuator using statsD
 4.We can define end points using annotations @WriteOperation at put api, @ReadOperation at get api and @DeleteOperation at delete api.
 5. Now run your application and check at /actuator/info or /mappings or /metrics or /env to view various actuator data.
 
+The StatsD registry pushes metrics over UDP to a StatsD agent eagerly. By default, metrics are exported to a StatsD agent running on your local machine. 
 Adding Statsd
 
 6.Add Micrometer Configuration : create a bean for meterRegistryCustomizer with meterRegistry .
@@ -18,6 +23,12 @@ We can add extra tags , histograms to maintain history, percentiles, extra tags,
 management.metrics.export.statsd.port:9125, by default port number is 9125
 
 9.Now after running application we can check actuator/metric and after api call we can see the timed metrics columns getting created.
+
+TELEGRAF
+Telegraf is a plugin-driven server agent for collecting and sending metrics and events from databases, systems, and IoT sensors.
+Telegraf is written in Go and compiles into a single binary with no external dependencies, and requires a very minimal memory footprint.
+
+InfluxDB is an open-source time series database (TSDB) developed by InfluxData. It is written in Go and optimized for fast, high-availability storage and retrieval of time series data in fields such as operations monitoring, application metrics, Internet of Things sensor data, and real-time analytics. It also has support for processing data from Graphite.
 
 Adding telegrad and influxdb to store data.
 10.We need to download influxdb and telegraf onto our system.
@@ -33,6 +44,8 @@ gedit  /etc/telegraf/telegraf.conf.
 17. then close and run ur telegraf using cmd: telegraf -debug
 18.Now run ur application ,if there is error u will get to know about it.
 19.Now check ur database if data is getting stored.
+
+Grafana is a general purpose dashboard and graph composer. It's focused on providing rich ways to visualize time series metrics, mainly though graphs but supports other ways to visualize data through a pluggable panel architecture. It currently has rich support for for Graphite, InfluxDB and OpenTSDB. But supports other data sources via plugins.
 
 Now Adding Grafana to view graphically your collected metrics.
 20.Download Grafana.
@@ -75,6 +88,20 @@ Implementing new Relic
 10.Now we can view various api logs and visualize api .
 
 
+
+
+
+
+NEW RELIC
+New Relic is the all-in-one web application performance tool that lets you see performance from the end user experience, through servers, and down to the line of application code.
+New Relic works through agents and provides Application monitoring,Server Monitoring,Browser Monitoring,Mobile and availability Monitoring.
+
+SPLUNK
+Splunk is a machine monitoring tool:it uses forwarders to collect and send data to splunk , then indexers to store data ,then visualizers to visualize data.
+It help the user to view : System performance , failure Conditions , business matrix, search and investigate , visualize and store.
+Benefits
+Can input data in any form, searches using spl, not a single failure and directly store data into splunk file system, fast scalability and installation.
+
 Splunk vs newRelic 
 Similarities:
 
@@ -96,129 +123,16 @@ Both New Relic and Splunk have alternatives:
     For Splunk alternative you could try DIY ELK stack (free software, but not free time/labour/expertise needed) or something like Logsene from Sematext, which gives you Elasticsearch API, Kibana, etc. and can be used in the Cloud or On Premises.
 
 
-Implementing MongoDB.
-1.Download MongoDb : sudo apt-get install -y mongodb-org
-2.Start and check status of mongoDB using cmd :sudo systemctl start mongod
-sudo systemctl enable mongod
-3.Now open mongodb using cmd :mongo
-4.Add a user with name and password and role, using create user in mongoDB.
-5.Now create a model in spring boot and add @Document .
-6.Each row in mongoDb is document , each table is a collection, and above that is database.
-7.Create a Repository interface and extend it to MongoRepository . Now we can create MongoTemplate and MongoRepository methods based on our requirement.
-8.MongoTemplates provide better searching methods and MongoRepository provides CRUD operations.
-9.Now Create a service and controller , Add to application properties, MongoDb port,username,password,dbname.
-10.spring.data.mongodb.host=localhost
-spring.data.mongodb.port=27017
-spring.data.mongodb.database=admin
-spring.data.mongodb.username=admin
-spring.data.mongodb.password=admin
-spring.data.mongodb.auto-index-creation=false
-11.We can also add it like this, by default database is test. But We can change name and it will be autocreated.
-#spring.data.mongodb.uri=mongodb://root:root@localhost:27017/test_db
-
-
-
-Implementing MongoDB aggregation functions
-1.We can implement various mongoDB aggregations using :MongodbTemplate class and using aggregate with further queries.
-2.It works in stages : we can match data then group them and perform more operations and vice-versa .
-3.Various aggregate functions are :Min,max,sum,avg,first,last,addToSet, push.
-4.Further we have pipelines : pipeline means the possibility to execute an operation on some input and use the output as the input for the next command and so on.
-Various pipeline Functions are:
-1.$project − Used to select some specific fields from a collection.
-2.$match − This is a filtering operation and thus this can reduce the amount of documents that are given as input to the next stage.
-3.$group − This does the actual aggregation as discussed above.
-4.$sort − Sorts the documents.
-5.$skip − With this, it is possible to skip forward in the list of documents for a given amount of documents.
-6.$limit − This limits the amount of documents to look at, by the given number starting from the current positions.
-7.$unwind −To expand doc again.
-
-
-MongoDb:Replication
-It making replication of your database to use it when one of the database fails.
-1.mkdir -p rs1 rs2 rs3  -creating directories
-2.mongod --replSet dhruv --logpath "1.log" --dbpath --port 27017 & 
-  mongod --replSet dhruv --logpath "2.log" --dbpath --port 27018 &
-  mongod --replSet dhruv --logpath "3.log" --dbpath --port 27019 &
-
- to run locally on different port and different log.
-3.Add config in mongodb
- config={_id:"dhruv",members:[
-{_id:0,host : "localhost:27017"},
-{_id:1,host : "localhost:27018"},
-{_id:2,host : "localhost:27019"},
-]};
-
-4. rs.initiate(config);
-5.rs.status();
-6.check running mongo using cmd: ps -ef | grep mongod
-7. Now kill primary using kill code.
-8. mongo --host dhruv/localhost:27017,localhost:27018,localhost:27019
-The replica set is a group of mongod instances that maintain the same data set.
-This example shows how to configure a replica set with three instances on the same server.
-Creating data folders
-mkdir /srv/mongodb/data/rs0-0
-mkdir /srv/mongodb/data/rs0-1
-mkdir /srv/mongodb/data/rs0-2
-Starting mongod instances
-mongod --port 27017 --dbpath /srv/mongodb/data/rs0-0 --replSet rs0
-mongod --port 27018 --dbpath /srv/mongodb/data/rs0-1 --replSet rs0
-mongod --port 27019 --dbpath /srv/mongodb/data/rs0-2 --replSet rs0
-Configuring replica set
-mongo --port 27017
-// connection to the instance 27017
-rs.initiate();
-rs.add("<hostname>:27018")
-rs.add("<hostname>:27019")
-// initilization of replica set on the 1st node
-// adding a 2nd node
-// adding a 3rd node
-Testing your setup
-For checking the configuration type rs.status()
-
-
-
-
-MongoDb sharding: 
-Sharding is the process of distributing data across multiple servers for storage.
-By default there are 3 config servers.
-Sharding Group Members :
-For sharding there are three players.
-1. Config Server
-2. Replica Sets
-3. Mongos
-For a mongo shard we need to setup the above three servers.
-Config Server Setup : add the following to mongod conf file
-sharding:
-clusterRole: configsvr
-replication:
-replSetName: <setname>
-run : mongod --config
-we can choose config server as replica set or may be a standalone server. Based on our requirement we can choose the
-best. If config need to run in replica set we need to follow the replica set setup
-Replica Setup : Create replica set // Please refer the replica setup
-MongoS Setup : Mongos is main setup in shard. Its is query router to access all replica sets
-Add the following in mongos conf file
-sharding:
-configDB: <configReplSetName>/cfg1.example.net:27017;
-Configure Shared :
-Connect the mongos via shell (mongo --host --port )
-1. sh.addShard( "/s1-mongo1.example.net:27017")
-2. sh.enableSharding("")
-3. sh.shardCollection("< database >.< collection >", { < key > : < direction > } )
-4. sh.status() // To ensure the sharding
-
-
-MongoDb :
-(Push:- to add new field ,       db.people.update({name: 'Tom'}, {$push: {nicknames: 'Tommy'}})
- Pop:- to delete a element in a array,-1 for 1st element, 1 for last element ,
- pull:-to delete a string in a array,   
- sort -1 for descending  and 1 for ascending        
- Poll, Array, MultiUpdate, Find and Modify, Query with sort)
-
-
-
-
-
+Kibana
+Kibana is an open source (Apache Licensed), browser based analytics and search dashboard for Elasticsearch. Kibana is a snap to setup and start using. Kibana strives to be easy to get started with, while also being flexible and powerful, just like Elasticsearch.
+Prometheus
+Prometheus is a systems and service monitoring system. It collects metrics from configured targets at given intervals, evaluates rule expressions, displays the results, and can trigger alerts if some condition is observed to be true.
+Graphite
+Graphite does two things: 1) Store numeric time-series data and 2) Render graphs of this data on demand
+Splunk
+Splunk Inc. provides the leading platform for Operational Intelligence. Customers use Splunk to search, monitor, analyze and visualize machine data.
+NetData
+Netdata is distributed, real-time, performance and health monitoring for systems and applications. It is a highly optimized monitoring agent you install on all your systems and containers
 
 
 
