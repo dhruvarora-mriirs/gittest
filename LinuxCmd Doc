@@ -133,18 +133,137 @@ after d first three words are for current user, next three are for groups then l
 31. sudo visudo -f /etc/sudoers : to view sudoers file.
 32.grep "admin" /etc/group : to view group admin
 33.sudo addgroup <grp name>: to add new grp.
-34. sudo adduser <userName> admin : admin is a group name , where we cn add user to use sudoers .
-35. date :to view currentdate
-36. cal :to view calender
-37. kill -9 <processID>:to kill a process
-38. sudo systemctl start <appName>: to start a server
-39. sudo systemctl status <appName>: to check status of a server
-40. sudo systemctl stop <appName>: to stop a server/app/process.
-41.top : to get info about all the running processes.
-42.htop : better version of top command
-43.sudo systemctl -a This directory is a special one for system administrators.  This not only provides information, but also allows you toquickly change (enable/disable) different kernel features.
-44.netstat -tulpn : show all running processes.
+34. sudo adduser <userName> admin :admin is a group name , where we cn add user to use sudoers .
+35.sudo passwd <userNAme>:to change user Password.
+36. date :to view currentdate
+37. cal :to view calender
+
+
+42.top : to get info about all the running processes.
+43.htop : better version of top command
+44.sudo systemctl -a This directory is a special one for system administrators.  This not only provides information, but also allows you toquickly change (enable/disable) different kernel features.
+45.netstat -tulpn : show all running processes.
+
+46.ln -s /etc/hostname filename :to create a soft link.
+47.ln linkNAme fileName : to create a hard link to a file.
+48.printenv : to view all Environment variables,evn var's are a way to pass data on to application
+49. export NAME="da" :to create env variables.
+50. echo $NAME :to print it.
+51.locate :it is a very useful tool to find files in the system ,part of mlocate
+52. sudo updatedb : to update search database.
+53.echo 'export HISTTIMEFORMAT="%d/%m/%y %T "' > ~/.bashrc : to get bash history.
+54.ls -lSh : to sort file by size in desc.
+
+Process Commands
+55.ps aux : command shows all the processes from your computer
+56.ps aux | grep firefox : to find particular process .
+57.kill <id> : to kill a particular process.
+58.lsof : gives a list of all open files.
+59.kill -9 <processID>:to kill a process through a signal , it forcibly kills a process.here 9 is a signal number to kill
+60.kill -l : will display all signals and their signal number.
+61.cat /proc : /proc directory contains all the process info and hardware etc.
+62.cat /proc/cpuinfo
+63.cat /proc/meminfo
+64.cat /proc/cmdline : all the things passed to kernel at boot time
+65.cat /proc/uptime 
+
+66.sudo sysctl -a :to see all the different settings
+67.sudo sysctl -w net.ipv4.ip_forward=1:o enable IP forwarding to the VM(s).
+68.systemctl : to find all systemd units in a system.
+69.sudo systemctl enable <name> :to enable a service.
+70.sudo systemctl disable <name>: to disable a service.
+71.sudo systemctl reboot <name> : to reboot a service
+72.sudo systemctl shutdown <name>: to shutdown a service
+73.sudo systemctl start <appName>: to start a server
+74.sudo systemctl status <appName>: to check status of a server
+75.sudo systemctl stop <appName>: to stop a server/app/process.
+76.sudo journalctl -u <service> : to find logs of a service.
+77.sudo journalctl -f -u <service>: to continuously read logs in real time.
+78.sudo journalctl --list-boots :Listing of previous bootsIn systems like Fedora,journalctlby default keeps history from past boots. To know about all available boot history
+79.sudo journalctl -b <id> : to read about particular boot .
+80.sudo journalctl --since yesterday : time based log viewing
+81.sudo journalctl --since "2019-11-10 14:00:00"
+
+82.dnf search pss : searching a package.
+83.dnf info pss : finding info abt package.
+
+
+Security-Enhanced Linux (SELinux) is a Linux kernel security module that provides a way to have access controlsecurity policies. This also allows a way to have Mandatory access control (MAC),
+There are 3 different modes.
+•  enforcing
+•  permissive
+•  disabled
+By default you system will come with enforcing mode.  In this mode the policies will be enforced in the system, andthis should be used in every production system. In the permissive mode the policies will not be enforced but any denialis logged. The disabled mode completely disable the SELinux.
+1.getenforce :The getenforce command will tell you the current SELinux mode.
+2.usage:  setenforce [ Enforcing | Permissive | 1 | 0 ] :: using setenforce to set the enforcing .
 
 
 
+File System mounting
+1.Mount :If you typemountin the shell, it will tell you about various filesystems, and how are they mounted (as a directory) in the system.
+ /dev/vd* For virtual machines   •  /dev/sd* For physical machines
+2.sudo dnf install ntfs-3g -y ::If   you   connect   vfat   partitioned   USB   drives   (the   normal   pendrives),    they   will   auto   mount   under   the/run/media/username/directory. But, for NTFS based drives, you will have to install the driver to mount those parti-tions
+3.sudo mount /dev/sdb1 /mnt :the mount command to mount a file system on an existing directory. The syntax to do that is,mount device/path/to/mount/at.
+4.unmount: the umount command on a given directory to unmount the file system
 
+
+Networking Commands
+1.  ip addr show : to find ip address of a system
+2. ping google.com : will used to check if connected computer is responding over network.
+3.cat /etc/hosts : contains list of domain name server hosts,u can update this to add a domain to any particular IP address
+4.cat /etc/resolv.conf :It contains the DNS server address to use for DNS queries
+5.host www.google.com :The host command will show you the IP address of any given hostname.
+6.dig email.in :dig command can tell us DNS records, MX details (used to send emails) and other information for a given domainname
+7.dig rtnpro.com @208.67.222.22   : if you want to specify a DNS server to use, you can do that with the address specified at the end of the command alongwith a @ sign.
+8. ss -putn :ss command shows us socket statistics from the system. This command replaces the older netstat command.
+9.tracerout www.google.com :traceroute command is used to show the full route of a network packet from the system to any given host.
+10. tracepath www.google.com :The tracepath command traces a path to a network host discovering MTU along the path.  This is a modern replace-ment of the traceroute command.
+11. ssh localhost : command to do remote login.
+12.ssh-keygen -t rsa -b 4096 -C "da@gmail.com" :to generate new ssh key ,it helps us to securely login to othercomputers
+13.ssh-copy-id fedora@209.12.123.55 :ssh-copy-id command copies the keys to a given remote system
+14.How to find active (open) network connections from your com-puter? ::$ sudo lsof -i -n -P
+15. sudo vim /etc/ssh/sshd_config : we can disable password auth at remote by changing this config.
+
+
+A firewall is a network security system, which can monitor and control network packets coming in and going out froma system based on pre-defined rules.In this chapter, we will learn aboutiptablescommand and how can we use the same to create and manage the system’sfirewall. The netfilter subsystem in Linux Kernel handles the actual packet filtering in the network level.
+
+1.sudo apt install iptables-persistent 
+
+When a network packet reaches the related table, and the related chain inside of the table, the rules gets matched fromtop to bottom. 
+If the packet matches then thetargetof the rule gets executed. 
+Each chain also has a default policy, if no rule matches, then, the default poilicy gets applied on the packet.
+ We will learn more about these in details.
+iptables has 5 built in chains.
+•INPUT :for all packets incoming to the system
+•OUTPUT :for all packets going out from the system
+•FORWARD :for the routed packets, this is when the system works as a router
+•PREROUTING :for port forwarding
+•POSTROUTING :for Source Network Address Translation (SNAT), this applies to all packets leaving the sys-tem
+
+1.iptables -A INPUT -p icmp -j DROP : make rule to stop any icmp request.
+2.Flushing all rules : iptables -F
+3.iptables -t raw -A PREROUTING -p tcp --destination YOUR_IP/24 --dport PORT_NUMBER -˓→j ::for debugging firewall rules.
+4.iptables -t raw -A OUTPUT -p tcp --destination YOUR_IP/24 --dport PORT_NUMBER -j ::for debugging firewall rules.
+5.iptables -D INPUT 4 : to delete a rule based on number.
+6.iptables -D INPUT -p tcp --dport 443 -j ACCEPT : delete a rule directly.
+7.iptables -nvL  : to view existing rules.
+Examples to add rules at port 80,22.
+1.iptables -A INPUT -i lo -j ACCEPT
+2.iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+3.iptables -A INPUT -p tcp -m state --state NEW --dport 22 -j ACCEPT
+4.iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+5.iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+6.iptables -A OUTPUT -j ACCEPT
+7.iptables -A INPUT -j REJECT
+8.iptables -A FORWARD -j REJECT
+
+
+w: shows all user logged in to computer.
+cp: copy source file into destination.
+vi : command used to create files.
+wc : count words in a file.
+mv : renaming files.
+rm : delete files.
+
+
+The curl command transfers data to or from a network server, using one of the supported protocols (HTTP, HTTPS, FTP, FTPS, SCP, SFTP, TFTP, DICT, TELNET, LDAP or FILE).
