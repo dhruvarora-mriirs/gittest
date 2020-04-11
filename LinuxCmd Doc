@@ -256,7 +256,7 @@ Examples to add rules at port 80,22.
 6.iptables -A OUTPUT -j ACCEPT
 7.iptables -A INPUT -j REJECT
 8.iptables -A FORWARD -j REJECT
-
+sudo lsof -nP -iTCP:3306 -sTCP:LISTEN
 
 w: shows all user logged in to computer.
 cp: copy source file into destination.

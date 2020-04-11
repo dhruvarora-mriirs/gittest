@@ -15,7 +15,7 @@ import com.example.controller.UserController;
 
 
 @SpringBootApplication
-@EnableDiscoveryClient
+
 @ComponentScan(value = {"com.example"})
 public class ApiApplication {
 	public static void main(String[] args) {

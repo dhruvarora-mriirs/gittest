@@ -1,0 +1,62 @@
+Clean Architecture
+
+1.The Dependency Rule.
+
+2.Entities.
+An object that contains critical business rules and critical business data.
+These should be separated from every other concern in the application.
+No dependencies on databases, 3rd party dependencies, user interfaces, etc.
+These objects are pure business.
+
+3.Use Cases.
+Use cases are application specific business rules
+Changes should not impact the Entities
+Changes should not be impacted by infrastructure such as a database
+The use cases orchestrate the flow of data in/out of the Entities and direct the Entities to use their Critical Business Rules to achieve the use case.
+
+4.InterFace Adapters.
+Converts data from data layers to use case or entity layers
+Presenters, views and controllers all belong here
+No code further in (use cases, entities) should have any knowledge of the db
+
+
+5.FrameWorks and Drivers.
+These are the glue that hook the various layers up
+The infrastructure details live here
+You’re not writing much of this code, i.e. we use SQL Server, but we don’t write it.
+
+6.Crossing Boundaries
+Flow of control went from the controller, through the application use case, then to the presenter
+Source code dependencies point in towards the use cases
+
+Dependency Inversion Principle
+Use case needs to call a presenter – doing so would violate the dependency rule – inner circles cannot call (or know about) outer circles….
+The use case would need to call an interface
+The implementation of that interface would be provided by the interface adapter layer – this is how the dependency is inverted
+This same type of inversion of control is used all throughout the architecture to invert the flow of control
+
+7.Data Crossing Boundaries
+Typically data crossing the boundaries consist of simple data structures
+DO NOT PASS ENTITY OBJECTS OR DATA ROWS!
+This would violate the dependency rules
+Data is passed in the format that is most convenient to the inner circle / layer
+These are isolated, simple data structures
+Meaning our DTOs needed to cross the boundaries should belong in the inner circle, or at least their definition (interface, abstract class)
+
+
+
+
+SAGA PATTERN ARCHITECTURE
+Saga patterns are basically used in transactions where we have different microservices with different databases and need to update databases at different transaction .
+
+1.Choreography : Event Based
+It calls other services based on event.
+It can cause a deadlock if one service fails to commit.
+It becomes dificult to implement when services increases.
+2.Orchestration : Command Based
+It creates another manager like service which is used to make calls to other services.
+It requires extra infrastructure and can be complex.
+It can be easily implemented and can increase services easily.
+In this we need to change this orchestra if any services changes.
+
+

@@ -53,6 +53,7 @@ public class UserService {
 		
 		return mongoTemplate.find(query, User.class); //sorted by userName in descending and where gender=male;
 	
+		
 	}
 	
 	public List<CustomResponse> getNoOfUser()  //count based on custom group
