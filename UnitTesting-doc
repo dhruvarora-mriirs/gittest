@@ -1,0 +1,5 @@
+UNIT TESTING
+Unit Testing is a one of the testing done by the developers to make sure individual unit or component functionalities are working fine.
+
+Mockito: A framework used to mock the classes that are being used by a unit.
+

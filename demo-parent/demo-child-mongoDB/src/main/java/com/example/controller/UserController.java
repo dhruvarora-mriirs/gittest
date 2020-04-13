@@ -75,7 +75,7 @@ public class UserController {
 	public ResponseEntity<User> addUser(@Valid @RequestBody User user) throws Exception {
 
 		logger.info("Called create User API");
-		return new ResponseEntity<>(services.saveUser(user), HttpStatus.CREATED);
+		return new ResponseEntity<User>(services.saveUser(user), HttpStatus.CREATED);
 
 	}
 
@@ -93,7 +93,7 @@ public class UserController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteUser(@PathVariable @Positive long id) {
-
+		logger.info("Called DELETE User API");
 		Optional<User> user = services.getUser(id);
 		if (user.isPresent()) {
 			services.Delete(id);
@@ -125,7 +125,6 @@ public class UserController {
 		}
 
 		throw new RecordNotFoundException("Invalid userName : " + userName);
-
 	}
 
 	@GetMapping("/male")
