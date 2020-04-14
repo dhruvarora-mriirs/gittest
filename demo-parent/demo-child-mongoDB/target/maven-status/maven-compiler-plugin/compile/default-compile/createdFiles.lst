@@ -1,0 +1,9 @@
+com/example/model/User.class
+com/example/repository/UserRepository.class
+com/example/model/User$UserBuilder.class
+com/example/MongoDbApplication.class
+com/example/controller/UserController.class
+com/example/model/AggregatorResponse.class
+com/example/exceptions/RecordNotFoundException.class
+com/example/service/UserService.class
+com/example/model/CustomResponse.class

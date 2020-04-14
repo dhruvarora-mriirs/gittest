@@ -66,7 +66,7 @@ public void saveUserTest()
 @Test
 public void deleteUserTest()
 {User user = new User(1,"dhruv","male",new java.util.Date(1998-02-28),"912210101","dhruv@gmail.com");
- service.Delete(user.getId());
+ service.delete(user.getId());
  verify(repository, times(1)).deleteById(user.getId());
 }
 

@@ -2,4 +2,37 @@ UNIT TESTING
 Unit Testing is a one of the testing done by the developers to make sure individual unit or component functionalities are working fine.
 
 Mockito: A framework used to mock the classes that are being used by a unit.
+         We can use mockito to mock various services that are required by our unit which we are testing.
+         
+Assert functions :these are various assert functions to check if the expected and return values are same.
+
+For Controllers we can use RestTemplate and MockMvc to perform various api calls.
+
+We can use various MockMvc method to define content type we expect from api calls.
+
+We can MockBean that are required and can injectBean into the services that required mocked beans.
+
+Mockito verify functions can be used to check how many times a method is called and if we are getting what we expect.
+
+--------------------------------------------------------------------------------------------------------------------------------
+To Generate Reports, There are Many ways : I have used Sure-fire
+
+First We need to add Dependency in pom file:
+ <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>2.19.1</version>
+            </plugin>
+        </plugins>
+    </reporting>
+Then we need to Go To runAs then run configuration :: write name.
+                                                      then at base directory select ur project from workspace.
+                                                      then write at goals ::clean install test surefire-report:report
+                                                      then apply and run
+Now refresh your project , Report will be generated at ur target folder with a html view of report.
+
+
+
 

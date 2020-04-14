@@ -39,7 +39,7 @@ import com.mongodb.client.result.UpdateResult;
 @RequestMapping("/api/v1/user")
 public class UserController {
 
-	Logger logger = LoggerFactory.getLogger(User.class);
+	Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
 	private UserService services;
@@ -52,9 +52,9 @@ public class UserController {
 		logger.info("Called ALL User API");
 		List<User> list = services.getAllUsers(pageNo, pageSize, sortBy);
 		if (list.isEmpty())
-			return new ResponseEntity<List<User>>(list, new HttpHeaders(), HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(list, new HttpHeaders(), HttpStatus.NO_CONTENT);
 
-		return new ResponseEntity<List<User>>(list, new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(list, new HttpHeaders(), HttpStatus.OK);
 
 	}
 
@@ -64,7 +64,7 @@ public class UserController {
 		logger.info("Called single User API");
 		Optional<User> user = services.getUser(id);
 		if (user.isPresent()) {
-			return new ResponseEntity<>(services.getUser(id).get(), HttpStatus.OK);
+			return new ResponseEntity<>(user.get(), HttpStatus.OK);
 		}
 
 		throw new RecordNotFoundException("Invalid user id : " + id);
@@ -75,7 +75,7 @@ public class UserController {
 	public ResponseEntity<User> addUser(@Valid @RequestBody User user) throws Exception {
 
 		logger.info("Called create User API");
-		return new ResponseEntity<User>(services.saveUser(user), HttpStatus.CREATED);
+		return new ResponseEntity<>(services.saveUser(user), HttpStatus.CREATED);
 
 	}
 
@@ -96,7 +96,7 @@ public class UserController {
 		logger.info("Called DELETE User API");
 		Optional<User> user = services.getUser(id);
 		if (user.isPresent()) {
-			services.Delete(id);
+			services.delete(id);
 			return new ResponseEntity<>("Deleted successfully", HttpStatus.ACCEPTED);
 		}
 		throw new RecordNotFoundException("Invalid user id : " + id);
@@ -121,33 +121,33 @@ public class UserController {
 
 		Optional<User> user = services.getByUserName(userName);
 		if (user.isPresent()) {
-			return new ResponseEntity<>(services.getByUserName(userName).get(), HttpStatus.OK);
+			return new ResponseEntity<>(user.get(), HttpStatus.OK);
 		}
 
 		throw new RecordNotFoundException("Invalid userName : " + userName);
 	}
 
 	@GetMapping("/male")
-	ResponseEntity<List<User>> getMaleUser()
+	public ResponseEntity<List<User>> getMaleUser()
 
 	{
 		List<User> list = services.getMaleUser();
 		if (list.isEmpty())
-			return new ResponseEntity<List<User>>(list, new HttpHeaders(), HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(list, new HttpHeaders(), HttpStatus.NO_CONTENT);
 
-		return new ResponseEntity<List<User>>(list, new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(list, new HttpHeaders(), HttpStatus.OK);
 
 	}
 
 	@GetMapping("/count")
-	ResponseEntity<List<CustomResponse>> getAggregatedUser()
+	public ResponseEntity<List<CustomResponse>> getAggregatedUser()
 
 	{
 		List<CustomResponse> list = services.getNoOfUser();
 		if (list.isEmpty())
-			return new ResponseEntity<List<CustomResponse>>(list, new HttpHeaders(), HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(list, new HttpHeaders(), HttpStatus.NO_CONTENT);
 
-		return new ResponseEntity<List<CustomResponse>>(list, new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(list, new HttpHeaders(), HttpStatus.OK);
 
 	}
 
@@ -168,9 +168,9 @@ public class UserController {
 		List<User> result = services.updateMulti(userName, gender);
 		if (result != null)
 
-			return new ResponseEntity<List<User>>(result, new HttpHeaders(), HttpStatus.OK);
+			return new ResponseEntity<>(result, new HttpHeaders(), HttpStatus.OK);
 
-		return new ResponseEntity<List<User>>(result, new HttpHeaders(), HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(result, new HttpHeaders(), HttpStatus.NO_CONTENT);
 
 	}
 

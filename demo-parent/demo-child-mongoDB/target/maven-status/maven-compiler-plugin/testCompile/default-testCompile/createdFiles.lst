@@ -1,0 +1,4 @@
+com/test/service/ServiceUnitTest.class
+AssertTest.class
+com/test/controller/UserControllerTest.class
+AbstractTest.class
