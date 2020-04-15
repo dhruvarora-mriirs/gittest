@@ -7,6 +7,7 @@ public class UserApiResponse {
 	
 	private User data;
 
+	
 	public User getUser() {
 		return data;
 	}
