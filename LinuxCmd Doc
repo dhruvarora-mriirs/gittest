@@ -267,3 +267,8 @@ rm : delete files.
 
 
 The curl command transfers data to or from a network server, using one of the supported protocols (HTTP, HTTPS, FTP, FTPS, SCP, SFTP, TFTP, DICT, TELNET, LDAP or FILE).
+
+
+PDF COMPRESSION
+gs -sDEVICE=pdfwrite -dCompatibilitylevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=Bbook-screenQuality.pdf Bbook.pdf
+
