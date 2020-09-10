@@ -3,7 +3,7 @@
  <parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.2.RELEASE</version>
+		<version>2.3.3.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
   <groupId>com.example</groupId>
@@ -28,5 +28,7 @@
   	<module>demo-child-throttling</module>
   	<module>demo-child-email</module>
   	<module>demo-child-mongoDB</module>
+  	<module>demo-open-weather</module>
+  	<module>demo-cloud-gateway</module>
   </modules>
 </project>
