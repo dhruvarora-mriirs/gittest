@@ -6,6 +6,7 @@ import com.example.model.Time;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -19,10 +20,23 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "city",
     "dominentpol",
     "iaqi",
-    "forecast"
+    "forecast",
+    "debug"
+})
+@JsonIgnoreProperties({
+	 "attributions",
+   "time", 
+   "forecast",
+   "debug"
 })
 public class Datas {
-
+ 
+	@JsonProperty("attributions")
+	private Object attributions;
+	@JsonProperty("dominentpol")
+	private Object dominant_pollutant;
+	@JsonProperty("debug")
+	private Object debug;
     @JsonProperty("idx")
     private Integer idx;
     @JsonProperty("aqi")
@@ -37,7 +51,6 @@ public class Datas {
     private Forecast forecast;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
     @JsonProperty("idx")
     public Integer getIdx() {
         return idx;

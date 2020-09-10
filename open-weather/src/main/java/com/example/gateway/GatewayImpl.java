@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.client.AqicnClient;
 import com.example.client.OpenWeatherClient;
 import com.example.model.CurrentWeatherResponse;
+import com.example.model.Response.AqiFeedResponse;
 
 import retrofit2.Call;
 import retrofit2.Response;

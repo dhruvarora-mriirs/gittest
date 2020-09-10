@@ -2,9 +2,11 @@ package com.example.client;
 
 
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.example.model.AqiResponse;
 import com.example.model.Response.AqiFeedResponse;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
