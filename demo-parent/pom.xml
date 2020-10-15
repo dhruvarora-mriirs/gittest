@@ -30,5 +30,6 @@
   	<module>demo-child-mongoDB</module>
   	<module>demo-open-weather</module>
   	<module>demo-cloud-gateway</module>
+  	<module>demo-child-oauth</module>
   </modules>
 </project>

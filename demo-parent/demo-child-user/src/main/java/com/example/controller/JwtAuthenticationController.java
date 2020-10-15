@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Positive;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -85,7 +84,7 @@ public class JwtAuthenticationController {
 	}
 	
 	@RequestMapping(value = "/verify", method = RequestMethod.POST)
-	public ResponseEntity<?> verifyToken(@Valid @RequestBody  String token) {
+	public ResponseEntity<?> verifyToken( @RequestBody  String token) {
 		final boolean decodedToken = jwtTokenUtil.validateTokens(token);
 		if (decodedToken != false) {
 			return new ResponseEntity<>(decodedToken, HttpStatus.OK);

@@ -5,8 +5,11 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -46,6 +49,12 @@ public class UserDashBoardController {
 
 	        return emp;
 
+	    }
+	    @RequestMapping("/sample")
+	    public ResponseEntity<?> getdata()
+	    {
+	        
+	    	return new ResponseEntity<>(restTemplate.getForObject("http://localhost:8081/api/v1/user",Collection.class),HttpStatus.OK);
 	    }
 
 	    @RequestMapping("/dashboard/peers")

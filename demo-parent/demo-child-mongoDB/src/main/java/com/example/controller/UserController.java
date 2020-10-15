@@ -28,6 +28,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.exceptions.CustomException;
+import com.example.exceptions.ErrorCode;
 import com.example.exceptions.RecordNotFoundException;
 import com.example.model.AggregatorResponse;
 import com.example.model.CustomResponse;
@@ -66,9 +68,10 @@ public class UserController {
 		if (user.isPresent()) {
 			return new ResponseEntity<>(user.get(), HttpStatus.OK);
 		}
-
-		throw new RecordNotFoundException("Invalid user id : " + id);
-
+		else
+         throw new CustomException(ErrorCode.ALREADY_REGISTERED_ACCOUNT);
+		//throw new RecordNotFoundException("Invalid user id : " + id);
+           
 	}
 
 	@PostMapping

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
-import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -58,7 +57,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 	
 	
 
-	public Optional<DAOUser> getUser(@Positive long id) {
+	public Optional<DAOUser> getUser( long id) {
 
 		return userDao.findById(id);
 		
@@ -75,7 +74,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 	
 
 	
-	public void Delete(@Positive long id) {
+	public void Delete( long id) {
 		userDao.deleteById(id);
 	}
 

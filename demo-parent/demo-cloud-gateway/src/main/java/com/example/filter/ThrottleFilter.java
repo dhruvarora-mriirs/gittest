@@ -19,7 +19,7 @@ import org.springframework.web.server.ServerWebExchange;
 /**
  * Sample throttling filter. See https://github.com/bbeck/token-bucket
  */
-
+@Component
 public class ThrottleFilter implements GatewayFilter {
 
 	private static final Log log = LogFactory.getLog(ThrottleFilter.class);

@@ -8,13 +8,8 @@ import reactor.core.publisher.Mono;
 @RestController
 public class FallbackController {
 
-	@RequestMapping("/mongoFallback")
-	public Mono<String> mongoFallback(){ 
-	return Mono.just("mongo service is down , please try again later");
-			}
-	
-	@RequestMapping("/weatherFallback")
-	public Mono<String> weatherFallback(){ 
-	return Mono.just("weather service is down , please try again later");
-			}
+	@RequestMapping("/fallback")
+	public Mono<String> mongoFallback() {
+		return Mono.just("service is down , please try again later");
+	}
 }
