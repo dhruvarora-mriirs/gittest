@@ -75,7 +75,7 @@ public class CloudGatewayConfig {
 						                
 						)
 						.uri("lb://hotel-service")
-						.order(1)
+						.order(0)
 						.id("userreservations"))
 				
 				
